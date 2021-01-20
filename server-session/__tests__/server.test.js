@@ -1,13 +1,13 @@
 const app = require('../index');
 const request = require('supertest');
 const agent = request(app);
-
 const factoryService = require('./helper/FactoryService');
 const databaseConnector = require('../lib/databaseConnector');
 const DB_CONNECTOR = new databaseConnector();
 const { expect, assert } = require('chai');
+const { before } = require('mocha');
 
-process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = 0;
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 describe('Authentication - Server', () => {
   before(async () => {
@@ -49,97 +49,134 @@ describe('Authentication - Server', () => {
   describe('Authentication - Server', () => {
     before(async () => {
       await DB_CONNECTOR.init();
+      await factoryService.setup();
+      await factoryService.insertTestUser();
     });
 
     after(async () => {
       await DB_CONNECTOR.terminate();
     });
 
-    beforeEach(async () => {
-      await factoryService.setup();
-      await factoryService.insertTestUser();
-    });
-
-    afterEach(async () => {
-      await factoryService.deleteTestUser({
-        email: `"kimcoding@codestates.com"`,
-      });
-    });
-
     describe('⛳️ POST /users/login', () => {
-      it("invalid userId or password request should respond with message 'not authorized'", async () => {
-        const response = await agent.post('/users/login').send({
+      let failedResponse;
+      let correctResponse;
+
+      let resCookies;
+
+      before(async () => {
+        failedResponse = await agent.post('/users/login').send({
           userId: 'kimcoding',
           password: 'helloWorld',
         });
 
-        expect(response.body.message).to.eql('not authorized');
+        correctResponse = await agent.post('/users/login').send({
+          userId: 'kimcoding',
+          password: '1234',
+        });
+
+        resCookies = correctResponse.header['set-cookie'][0];
+      });
+      it("invalid userId or password request should respond with message 'not authorized'", async () => {
+        expect(failedResponse.body.message).to.eql('not authorized');
       });
 
       it("valid userId and password request should respond with message 'ok'", async () => {
-        const response = await agent.post('/users/login').send({
-          userId: 'kimcoding',
-          password: '1234',
+        expect(correctResponse.body.message).to.eql('ok');
+      });
+
+      describe('Cookie options', () => {
+        it("invalid userId or password request should respond with message 'not authorized'", () => {
+          expect(failedResponse.body.message).to.eql('not authorized');
         });
 
-        expect(response.body.message).to.eql('ok');
+        it("valid userId and password request should respond with message 'ok'", () => {
+          expect(correctResponse.body.message).to.eql('ok');
+        });
+
+        it('Cookie should have right Domain cookie option', () => {
+          expect(resCookies).include('Domain=localhost;');
+        });
+
+        it('Cookie should have right path cookie option', () => {
+          expect(resCookies).include('Path=/;');
+        });
+
+        it('Cookie should have HttpOnly cookie option', () => {
+          expect(resCookies).include('HttpOnly');
+        });
+
+        it('Cookie should have Secure cookie option', () => {
+          expect(resCookies).include('Secure');
+        });
+
+        it('Cookie should have right SameSite cookie option', () => {
+          expect(resCookies).include('SameSite=None');
+        });
       });
 
       it('connect.sid cookie value should be set as encrypted value while using express-session', async () => {
-        const response = await agent.post('/users/login').send({
-          userId: 'kimcoding',
-          password: '1234',
-        });
-
-        let resCookies = response.header['set-cookie'];
-        console.log(resCookies)
-
-        expect(resCookies[0]).include('connect.sid');
-      });
-
-      it('cookies should have Secure and SameSite option', async () => {
-        const response = await agent.post('/users/login').send({
-          userId: 'kimcoding',
-          password: '1234',
-        });
-
-        let resCookies = response.header['set-cookie'][0];
-
-        expect(resCookies).include('HttpOnly');
-        expect(resCookies).include('Secure');
-        expect(resCookies).include('SameSite=None');
+        expect(resCookies).include('connect.sid');
       });
     });
 
     describe('⛳️ POST /users/logout', () => {
-      it('should return 200 status code after logout successfully', async () => {
-        let response = await agent.post('/users/login').send({
+      let response;
+
+      let resCookies;
+
+      before(async () => {
+        response = await agent.post('/users/login').send({
           userId: 'kimcoding',
           password: '1234',
         });
-        let resCookies = response.header['set-cookie'];
 
-        response = await agent.post('/users/logout').set('Cookie', resCookies);
+        resCookies = response.header['set-cookie'][0];
+      });
+
+      it('should return code 200 after login', async () => {
+        const response = await agent
+          .get('/users/userinfo')
+          .set('Cookie', resCookies);
 
         expect(response.status).to.eql(200);
+      });
+
+      it('should return code 400 after logout', async () => {
+        await agent.post('/users/logout').set('Cookie', resCookies);
+
+        const response = await agent.post('/users/logout');
+
+        expect(response.status).to.eql(400);
       });
     });
 
     describe('⛳️ GET /users/userinfo', () => {
-      it('should return 200 status code when requested with a valid cookie', async () => {
-        let response = await agent.post('/users/login').send({
+      let response;
+
+      let resCookies;
+
+      before(async () => {
+        response = await agent.post('/users/login').send({
           userId: 'kimcoding',
           password: '1234',
         });
-        let resCookies = response.header['set-cookie'];
-        response = await agent.get('/users/userinfo').set('Cookie', resCookies);
+
+        resCookies = response.header['set-cookie'][0];
+      });
+
+      it('should return 200 status code when requested with a valid cookie', async () => {
+        const response = await agent
+          .get('/users/userinfo')
+          .set('Cookie', resCookies);
 
         expect(response.status).to.eql(200);
         expect(response.body.message).to.eql('ok');
       });
 
       it('should return 400 status code when requested without a cookie', async () => {
-        let response = await agent.get('/users/userinfo');
+        await agent.post('/users/logout').set('Cookie', resCookies);
+
+        const response = await agent.get('/users/userinfo');
 
         expect(response.status).to.eql(400);
         expect(response.body.message).to.eql('not authorized');
