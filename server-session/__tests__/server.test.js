@@ -80,7 +80,8 @@ describe('Authentication - Server', () => {
 
     it('서버는 https 프로토콜을 사용해야 합니다',()=>{
       expect(app instanceof https.Server).to.eql(true)
-
+    });
+    
     describe('⛳️ POST /users/login', () => {
       let failedResponse;
       let correctResponse;
