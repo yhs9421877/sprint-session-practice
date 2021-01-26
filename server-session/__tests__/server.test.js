@@ -1,5 +1,5 @@
 const fs = require('fs')
-describe('기초 테스트',()=>{
+describe('파일 및 환경변수 테스트',()=>{
   it('인증서 파일이 존재해야 합니다',()=>{
     // fs.existsSync 함수가 사용하는 상대경로는 package.json 파일의 위치를 기준으로 합니다.
     // 서버 package.json의 위치에 인증서 파일들을 위치시켜야 합니다.
@@ -7,19 +7,11 @@ describe('기초 테스트',()=>{
     expect(fs.existsSync('./cert.pem')).to.be.true
   })
 
-  it('환경변수에 데이터베이스 사용자 이름이 존재해야 합니다',()=>{
-     
-    expect(process.env.DATABASE_USERNAME).to.exist;
-    expect(process.env.DATABASE_USERNAME).not.to.include(';')
-  })
-  it('환경변수에 데이터베이스 이름이 존재해야 합니다',()=>{
+  it('환경변수에 데이터베이스 비밀번호가 존재해야 합니다',()=>{
     expect(process.env.DATABASE_PASSWORD).to.exist;
     expect(process.env.DATABASE_PASSWORD).not.to.include(';')
   })
-  it('환경변수에 데이터베이스 사용자 이름이 존재해야 합니다',()=>{
-    expect(process.env.DATABASE_NAME).to.exist;
-    expect(process.env.DATABASE_NAME).not.to.include(';')
-  })
+
 })
 
 const app = require('../index');
