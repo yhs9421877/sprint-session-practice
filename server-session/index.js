@@ -61,7 +61,7 @@ if(fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")){
       app
     )
     .listen(PORT);
-    } else {
-      server = app.listen(PORT)
-    }
+} else {
+  server = app.listen(PORT)
+}
 module.exports = server;

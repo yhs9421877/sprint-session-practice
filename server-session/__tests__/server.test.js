@@ -17,7 +17,7 @@ describe('파일 및 환경변수 테스트',()=>{
 const app = require('../index');
 const request = require('supertest');
 const agent = request(app);
-
+const https = require('https');
 const factoryService = require('./helper/FactoryService');
 const databaseConnector = require('../lib/databaseConnector');
 const DB_CONNECTOR = new databaseConnector();
@@ -77,6 +77,9 @@ describe('Authentication - Server', () => {
     after(async () => {
       await DB_CONNECTOR.terminate();
     });
+
+    it('서버는 https 프로토콜을 사용해야 합니다',()=>{
+      expect(app instanceof https.Server).to.eql(true)
 
     describe('⛳️ POST /users/login', () => {
       let failedResponse;
