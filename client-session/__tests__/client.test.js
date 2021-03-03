@@ -27,14 +27,14 @@ describe('Authentication - Client', () => {
   };
 
   describe('Mypage Component', () => {
-    it('should have userData object from props', () => {
+    it('props에 userData 객체가 존재해야 합니다', () => {
       const userData = { id: 0, userId: 'test', email: 'test@test.com' };
       const wrapper = mount(<Mypage userData={userData} />);
 
       expect(wrapper.find('.name').text()).to.eql('test');
     });
 
-    it('should send POST `/users/logout` request when logout button is clicked', function (done) {
+    it('로그아웃 버튼이 클릭된 경우, POST `/users/logout` 요청을 보내야합니다', function (done) {
       const scope = nock('https://localhost:4000')
         .post('/users/logout')
         .reply(200, { data: null, message: 'ok' });
@@ -49,7 +49,7 @@ describe('Authentication - Client', () => {
       }, 500);
     });
 
-    it('logoutHandler should be called after successful logout', function (done) {
+    it('로그아웃 요청이 성공한 이후, logoutHandler 함수가 호출되어야 합니다.', function (done) {
       const scope = nock('https://localhost:4000')
         .post('/users/logout')
         .reply(200, { data: null, message: 'ok' });
@@ -74,7 +74,7 @@ describe('Authentication - Client', () => {
   });
 
   describe('Login Component', () => {
-    it('should send POST `/login` when login button is clicked', (done) => {
+    it('로그인 버튼이 클릭된경우, POST `/login` 요청을 보내야 합니다', (done) => {
       let scope = nock('https://localhost:4000').post('/users/login').reply(
         200,
         { data: null, message: 'ok' },
@@ -95,7 +95,7 @@ describe('Authentication - Client', () => {
       }, 500);
     });
 
-    it('loginHandler should be called after successful login', (done) => {
+    it('로그인에 성공한 경우, `loginHandler` 함수가 호출되어야 합니다', (done) => {
       nock('https://localhost:4000').post('/users/login').reply(
         200,
         { data: null, message: 'ok' },
@@ -121,7 +121,7 @@ describe('Authentication - Client', () => {
       }, 500);
     });
 
-    it('should send GET `/users/userinfo` after successful login', (done) => {
+    it('로그인 이후 GET `/users/userinfo` 요청을 통해 유저정보를 받아와야 합니다', (done) => {
       nock('https://localhost:4000').post('/users/login').reply(
         200,
         { data: null, message: 'ok' },
@@ -158,7 +158,7 @@ describe('Authentication - Client', () => {
       }, 500);
     });
 
-    it('setUserInfo should be called after a successful GET `/users/userinfo` request', (done) => {
+    it('성공적으로 GET `/users/userinfo`요청이 완료된 이후, `setUserInfo` 함수가 실행되어야 합니다', (done) => {
       nock('https://localhost:4000').post('/users/login').reply(
         200,
         { data: null, message: 'ok' },

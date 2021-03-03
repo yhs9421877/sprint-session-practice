@@ -3,9 +3,9 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     /**
-     * Add seed commands here.
+     * 시쿼라이즈가 실행할 시드 명령어를 작성합니다..
      *
-     * Example:
+     * 예시:
      * await queryInterface.bulkInsert('People', [{
      *   name: 'John Doe',
      *   isBetaMember: false
@@ -25,9 +25,9 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     /**
-     * Add commands to revert seed here.
+     * 시드를 취소하기 위한 명령어를 작성합니다.
      *
-     * Example:
+     * 예시:
      * await queryInterface.bulkDelete('People', null, {});
      */
     return queryInterface.bulkDelete('Users', null, {});
