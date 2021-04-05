@@ -1,1 +1,1 @@
-# im-sprint-auth-session
+# auth-session
