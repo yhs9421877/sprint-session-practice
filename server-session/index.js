@@ -13,7 +13,6 @@ const FILL_ME_IN = 'FILL_ME_IN';
 const PORT = process.env.PORT || 4000;
 
 // TODO: express-session 라이브러리를 이용해 쿠키 설정을 해줄 수 있습니다.
-// 앞서 쿠키 스프린트에서 설정했던 값과 동일하게 설정해도 무방합니다.
 app.use(
   session({
     secret: '@codestates',
@@ -39,8 +38,8 @@ app.use(cors());
 /**
  * /users 요청에 대해서 라우터를 이용하기 때문에,
  * 반드시 아래와 같은 주소와 메서드로 요청을 보내야 합니다.
- * 
- * POST https://localhost:4000/users/login, 
+ *
+ * POST https://localhost:4000/users/login,
  * POST https://localhost:4000/users/logout,
  * GET https://localhost:4000/users/userinfo
  */
@@ -48,10 +47,10 @@ app.use('/users', usersRouter);
 
 let server;
 
-// 인증서 파일들이 존재하는 경우에만 https 프로토콜을 사용하는 서버를 실행합니다. 
+// 인증서 파일들이 존재하는 경우에만 https 프로토콜을 사용하는 서버를 실행합니다.
 // 만약 인증서 파일이 존재하지 않는경우, http 프로토콜을 사용하는 서버를 실행합니다.
 // 파일 존재여부를 확인하는 폴더는 서버 폴더의 package.json이 위치한 곳입니다.
-if(fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")){
+if (fs.existsSync("./key.pem") && fs.existsSync("./cert.pem")) {
   server = https
     .createServer(
       {
