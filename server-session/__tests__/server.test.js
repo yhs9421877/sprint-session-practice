@@ -1,13 +1,13 @@
 const fs = require('fs')
-describe('파일 및 환경변수 테스트',()=>{
-  it('인증서 파일이 존재해야 합니다',()=>{
+describe('파일 및 환경변수 테스트', () => {
+  it('인증서 파일이 존재해야 합니다', () => {
     // fs.existsSync 함수가 사용하는 상대경로는 package.json 파일의 위치를 기준으로 합니다.
     // 서버 package.json의 위치에 인증서 파일들을 위치시켜야 합니다.
     expect(fs.existsSync('./key.pem')).to.be.true
     expect(fs.existsSync('./cert.pem')).to.be.true
   })
 
-  it('환경변수에 데이터베이스 비밀번호가 존재해야 합니다',()=>{
+  it('환경변수에 데이터베이스 비밀번호가 존재해야 합니다', () => {
     expect(process.env.DATABASE_PASSWORD).to.exist;
     expect(process.env.DATABASE_PASSWORD).not.to.include(';')
   })
@@ -29,7 +29,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 describe('Authentication - Server', () => {
 
   before(async () => {
-   
+
     await factoryService.init();
     console.log('\n  🏭factory service started.\n');
   });
@@ -38,8 +38,8 @@ describe('Authentication - Server', () => {
     after(async () => {
       await DB_CONNECTOR.terminate();
     });
-    
-  
+
+
 
     it('성공적으로 데이터베이스와 연결되어야 합니다', async () => {
       let response;
@@ -78,10 +78,10 @@ describe('Authentication - Server', () => {
       await DB_CONNECTOR.terminate();
     });
 
-    it('서버는 https 프로토콜을 사용해야 합니다',()=>{
+    it('서버는 https 프로토콜을 사용해야 합니다', () => {
       expect(app instanceof https.Server).to.eql(true)
     });
-    
+
     describe('⛳️ POST /users/login', () => {
       let failedResponse;
       let correctResponse;
@@ -153,7 +153,7 @@ describe('Authentication - Server', () => {
 
       it('로그인 이후 로그아웃를 요청하는 경우, 상태코드 200을 리턴해야 합니다', async () => {
         const response = await agent
-          .get('/users/userinfo')
+          .post('/users/logout')
           .set('Cookie', resCookies);
 
         expect(response.status).to.eql(200);
