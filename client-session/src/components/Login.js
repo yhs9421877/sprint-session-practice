@@ -18,19 +18,18 @@ class Login extends Component {
 
   async loginRequestHandler() {
     const loginUrl = "https://localhost:4000/users/login";
-    // const userInfoUrl = "https://localhost:4000/users/userinfo";
+    const userInfoUrl = "https://localhost:4000/users/userinfo";
 
     try{
-      const response = await axios.post(loginUrl, {
+      await axios.post(loginUrl, {
         userId: this.state.username,
         password: this.state.password
       }); 
-      console.log("login res.data: ", response)
       
-      // const response = await axios.get(userInfoUrl);
+      const response = await axios.get(userInfoUrl); //400 status: req.session에 userId가 없음.
+      await this.props.loginHandler();
+      this.props.setUserInfo(response.data);
       
-      this.props.setUserInfo(response.data.userInfo);
-      this.props.loginHandler();
       
     } catch(err) {
       console.log("loginRequestHandler failure");
