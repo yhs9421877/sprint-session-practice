@@ -27,7 +27,7 @@ class Login extends Component {
       }); 
       
       const response = await axios.get(userInfoUrl); //400 status: req.session에 userId가 없음.
-      await this.props.loginHandler();
+      this.props.loginHandler();
       this.props.setUserInfo(response.data);
       
       
