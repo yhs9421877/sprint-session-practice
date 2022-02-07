@@ -32,13 +32,13 @@ class App extends Component {
   }
 
   render() {
-    const { isLogin } = this.state;
+    const { isLogin, userData} = this.state;
     return (
       <div className='App'>
         {isLogin ? (
           <Mypage
             logoutHandler={this.logoutHandler}
-            userData={this.state.userData}
+            userData={userData}
           />
         ) : (
             <Login

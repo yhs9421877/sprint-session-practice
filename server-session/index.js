@@ -19,12 +19,12 @@ app.use(
     resave: false,
     saveUninitialized: true,
     cookie: {
-      domain: FILL_ME_IN,
-      path: FILL_ME_IN,
+      domain: 'localhost',
+      path: '/',
       maxAge: 24 * 6 * 60 * 10000,
-      sameSite: FILL_ME_IN,
-      httpOnly: FILL_ME_IN,
-      secure: FILL_ME_IN,
+      sameSite: 'none',
+      httpOnly: true,
+      secure: true,
     },
   })
 );

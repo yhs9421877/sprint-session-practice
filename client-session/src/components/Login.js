@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+const axios = require('axios');
 
 class Login extends Component {
   constructor(props) {
@@ -15,15 +16,26 @@ class Login extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  loginRequestHandler() {
-    // TODO: 로그인 요청을 보내세요.
-    //
-    // 로그인에 성공하면
-    // - props로 전달받은 함수를 호출해, 로그인 상태를 변경하세요.
-    // - GET /users/userinfo 를 통해 사용자 정보를 요청하세요
-    //
-    // 사용자 정보를 받아온 후
-    // - props로 전달받은 함수를 호출해, 사용자 정보를 변경하세요.
+  async loginRequestHandler() {
+    const loginUrl = "https://localhost:4000/users/login";
+    // const userInfoUrl = "https://localhost:4000/users/userinfo";
+
+    try{
+      const response = await axios.post(loginUrl, {
+        userId: this.state.username,
+        password: this.state.password
+      }); 
+      console.log("login res.data: ", response)
+      
+      // const response = await axios.get(userInfoUrl);
+      
+      this.props.setUserInfo(response.data.userInfo);
+      this.props.loginHandler();
+      
+    } catch(err) {
+      console.log("loginRequestHandler failure");
+      throw err;
+    }
   }
 
   render() {
