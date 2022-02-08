@@ -15,8 +15,8 @@ module.exports = {
       console.log("not authorized");
     } else {
       req.session.userId = userInfo.userId;
-      console.log("유저 인포.userId: ", userInfo.userId);
-      console.log("로그인 성공: ", req.session.userId);
+      req.session.email = userInfo.email;
+      console.log("유저 인포: ", userInfo);
       console.log("로그인 성공: ", req.session);
       res.status(200).send({userInfo, message: 'ok'});
 

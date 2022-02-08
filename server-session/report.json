@@ -5,43 +5,43 @@
     "passes": 17,
     "pending": 0,
     "failures": 0,
-    "start": "2022-02-07T06:11:41.450Z",
-    "end": "2022-02-07T06:11:41.674Z",
-    "duration": 224
+    "start": "2022-02-08T03:34:28.367Z",
+    "end": "2022-02-08T03:34:28.578Z",
+    "duration": 211
   },
   "tests": [
     {
       "title": "인증서 파일이 존재해야 합니다",
       "fullTitle": "파일 및 환경 변수 테스트 인증서 파일이 존재해야 합니다",
-      "duration": 0,
+      "duration": 1,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "환경 변수에 데이터베이스 비밀번호가 존재해야 합니다",
       "fullTitle": "파일 및 환경 변수 테스트 환경 변수에 데이터베이스 비밀번호가 존재해야 합니다",
-      "duration": 0,
+      "duration": 1,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "성공적으로 데이터베이스에 연결해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Database 성공적으로 데이터베이스에 연결해야 합니다",
-      "duration": 4,
+      "duration": 3,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "데이터베이스에 `Users` 테이블이 존재해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Database 데이터베이스에 `Users` 테이블이 존재해야 합니다",
-      "duration": 5,
+      "duration": 10,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "서버는 https 프로토콜을 사용해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Server 서버는 https 프로토콜을 사용해야 합니다",
-      "duration": 1,
+      "duration": 0,
       "currentRetry": 0,
       "err": {}
     },
@@ -104,28 +104,28 @@
     {
       "title": "로그인 이후 로그아웃를 요청하는 경우, 상태코드 200을 리턴해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Server ⛳️ POST /users/logout 로그인 이후 로그아웃를 요청하는 경우, 상태코드 200을 리턴해야 합니다",
-      "duration": 6,
+      "duration": 5,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "로그아웃 이후 혹은 로그인 전에 로그아웃을 요청하는 경우, 상태코드 400을 리턴해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Server ⛳️ POST /users/logout 로그아웃 이후 혹은 로그인 전에 로그아웃을 요청하는 경우, 상태코드 400을 리턴해야 합니다",
-      "duration": 12,
+      "duration": 8,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "로그인 이후 사용자 정보를 요청하는 경우 상태코드 200 및 `ok` 메세지를 리턴해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Server ⛳️ GET /users/userinfo 로그인 이후 사용자 정보를 요청하는 경우 상태코드 200 및 `ok` 메세지를 리턴해야 합니다",
-      "duration": 8,
+      "duration": 5,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "로그인이 되지 않은 상태에서 사용자 정보를 요청하는 경우, 상태코드 400 및 `not authorized` 메세지를 리턴해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Server ⛳️ GET /users/userinfo 로그인이 되지 않은 상태에서 사용자 정보를 요청하는 경우, 상태코드 400 및 `not authorized` 메세지를 리턴해야 합니다",
-      "duration": 11,
+      "duration": 8,
       "currentRetry": 0,
       "err": {}
     }
@@ -136,35 +136,35 @@
     {
       "title": "인증서 파일이 존재해야 합니다",
       "fullTitle": "파일 및 환경 변수 테스트 인증서 파일이 존재해야 합니다",
-      "duration": 0,
+      "duration": 1,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "환경 변수에 데이터베이스 비밀번호가 존재해야 합니다",
       "fullTitle": "파일 및 환경 변수 테스트 환경 변수에 데이터베이스 비밀번호가 존재해야 합니다",
-      "duration": 0,
+      "duration": 1,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "성공적으로 데이터베이스에 연결해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Database 성공적으로 데이터베이스에 연결해야 합니다",
-      "duration": 4,
+      "duration": 3,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "데이터베이스에 `Users` 테이블이 존재해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Database 데이터베이스에 `Users` 테이블이 존재해야 합니다",
-      "duration": 5,
+      "duration": 10,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "서버는 https 프로토콜을 사용해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Server 서버는 https 프로토콜을 사용해야 합니다",
-      "duration": 1,
+      "duration": 0,
       "currentRetry": 0,
       "err": {}
     },
@@ -227,28 +227,28 @@
     {
       "title": "로그인 이후 로그아웃를 요청하는 경우, 상태코드 200을 리턴해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Server ⛳️ POST /users/logout 로그인 이후 로그아웃를 요청하는 경우, 상태코드 200을 리턴해야 합니다",
-      "duration": 6,
+      "duration": 5,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "로그아웃 이후 혹은 로그인 전에 로그아웃을 요청하는 경우, 상태코드 400을 리턴해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Server ⛳️ POST /users/logout 로그아웃 이후 혹은 로그인 전에 로그아웃을 요청하는 경우, 상태코드 400을 리턴해야 합니다",
-      "duration": 12,
+      "duration": 8,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "로그인 이후 사용자 정보를 요청하는 경우 상태코드 200 및 `ok` 메세지를 리턴해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Server ⛳️ GET /users/userinfo 로그인 이후 사용자 정보를 요청하는 경우 상태코드 200 및 `ok` 메세지를 리턴해야 합니다",
-      "duration": 8,
+      "duration": 5,
       "currentRetry": 0,
       "err": {}
     },
     {
       "title": "로그인이 되지 않은 상태에서 사용자 정보를 요청하는 경우, 상태코드 400 및 `not authorized` 메세지를 리턴해야 합니다",
       "fullTitle": "Authentication - Server Authentication - Server ⛳️ GET /users/userinfo 로그인이 되지 않은 상태에서 사용자 정보를 요청하는 경우, 상태코드 400 및 `not authorized` 메세지를 리턴해야 합니다",
-      "duration": 11,
+      "duration": 8,
       "currentRetry": 0,
       "err": {}
     }
